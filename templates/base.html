@@ -10,19 +10,11 @@
     </head>
     <body>
 
-        <div>
-            <a href='/'>Main Blog Page</a>
-            <a href='/blog'>Add A Blog Entry</a>
-        </div>
-    
+        <nav>
+            <a href='/newblog'>Make A New Blog Post</a>
+            <a href='/blog'>Main Blog Page</a>
+        </nav>
 
-        {% with messages = get_flashed_messages(with_categories=True) %}
-        <ul>
-            {% for category,message in messages %}
-                <li class = '{{category}}'>{{message}}</li>
-            {% endfor %}
-            </ul>
-        {% endwith %}
 
         {% block content %}
         {% endblock %}

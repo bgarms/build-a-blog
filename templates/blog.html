@@ -4,10 +4,11 @@
     <h1 align="center">Add A Blog Entry</h1>
     <form action ="/blog" method="POST">
         <label>Title For Your New Blog: </br>
-            <input type="text" name="text" id="title" value='{{ title }}' placeholder="Enter Post Title"/></br></br></br>
+            <input type="text" name="text" id="title" value='{{ title }}' placeholder="Enter Post Title"
+                required/></br></br></br>
         </label>
             <label>Your New Blog:</label></br>
-            <textarea type="text" name="body" id ="body" value= '{{ body }}' placeholder="Enter Blog"/></textarea></br></br>
+            <textarea name="body" value= '{{ body }}' placeholder="Enter Blog" required/></textarea></br></br>
         <label>
             <input type="submit" value="Add Entry"/>   
         </label>
