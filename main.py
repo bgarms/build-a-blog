@@ -19,53 +19,44 @@ class Blog(db.Model):
         self.title = title
         self.body = body
 
-
-@app.route('/blog', methods=['GET', 'POST'])
+@app.route('/')
 def index():
-    if request.args:
-        id=request.args.get("id")
-        blog=Blog.query.get(id)
+    return render_template('blog.html')
 
-        return render_template('blog-entry.html',blog=blog)
-
-    else:
-        blogs=Blog.query.all()
-        return render_template('blog.html', blogs=blogs)
-
+@app.route('/blog', methods=['GET'])
 def blog():
-    if request.method == 'GET':
-        return render_template('blog.html')
 
+  if request.args:
+    id = request.args.get("id")
+    blog = Blog.query.get(id)
+
+    return render_template('blog-entry.html', title="Build A Blog", blog=blog)
+
+  else:
+    blogs = Blog.query.all()
+
+    return render_template('blog.html', blogs=blogs)
+
+    
+@app.route('/newpost', methods=['POST', 'GET'])
+def newpost():
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
-        blog = Blog(title, body)
-        db.session.add(blog)
-        db.session.commit()
-        new_url = "/blog?id=" + str(blog.id)
-        return redirect(new_url)
 
-    else:
-        return render_template(title=title, body=body)
+        if not title or not body:
+            flash("Please fill out all fields.")
+            return redirect('/newpost')
+        
 
-    
-@app.route('/newpost',methods=["POST", "GET"])
-def add_blog():
-    if request.method=="GET":
-        return render_template('newpost.html')
+        else:
+             blog = Blog(title, body) 
+             db.session.add(blog)
+             db.session.commit()
+             return redirect('/blog')
 
-    if request.method=="POST":
-        title = request.form['title']
-        body = request.form['body']
-        blog=Blog(blog_title,blog_body)
-        db.session.add(blog)
-        db.session.commit()
-        new_url = "/blog?id=" + str(blog.id)
+    return render_template('newpost.html')
 
-        return redirect(new_url)
-
-    else:
-         return render_template('newpost.html',title=title,body=body)
 
 
 if __name__ == '__main__':
