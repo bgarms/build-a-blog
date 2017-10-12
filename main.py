@@ -55,7 +55,7 @@ def newpost():
              blog = Blog(title, body) 
              db.session.add(blog)
              db.session.commit()
-             return redirect('/blog')
+             return redirect('/blog?id=' + str(blog.id))
 
     return render_template('newpost.html')
 
@@ -63,3 +63,4 @@ def newpost():
 
 if __name__ == '__main__':
     app.run()
+
