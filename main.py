@@ -21,7 +21,9 @@ class Blog(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('blog.html')
+
+    blogs = Blog.query.all()
+    return render_template('blog.html', blogs=blogs)
 
 @app.route('/blog', methods=['GET'])
 def blog():
